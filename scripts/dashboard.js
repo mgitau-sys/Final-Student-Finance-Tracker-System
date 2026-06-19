@@ -1,15 +1,18 @@
 import { state } from './state.js';
-//import { formatCurrency } from './currency.js';
+import { formatCurrency } from './currency.js';
+import { convertAmount } from './currency.js';
 
 // === 1. LIVE NUMERIC AGGREGATION FUNCTIONS ===
 export function getTotalRecords(expenses) {
     return expenses.length;
 }
 
-export function getTotalSpending(expenses) {
-    return expenses.reduce((total, expense) => total + expense.amount, 0);
+export function getTotalSpending(expenses, targetCurrency) {
+    return expenses.reduce((total, expense) => {
+        const converted = convertAmount(parseFloat(expense.amount || 0), "KES", targetCurrency);
+        return total + converted;
+    }, 0);
 }
-
 export function getTopCategory(expenses) {
     if (expenses.length === 0) return "None";
     const counts = {};
@@ -28,30 +31,25 @@ export function getTopCategory(expenses) {
     return topCategory;
 }
 
-export function getBudgetStatus(expenses, budgetCap, settings) {
-    if (!budgetCap || budgetCap <= 0) return "No budget set";
-    const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-    const remaining = budgetCap - total;
-    const currency = settings.baseCurrency;
+export function getBudgetStatus(totalSpending, convertedBudgetCap, settings) {
+    if (!convertedBudgetCap || convertedBudgetCap <= 0) return "No budget set";
+    const remaining = convertedBudgetCap - totalSpending;
 
-    if (remaining > 0) return `${currency} ${remaining} remaining`;
-    return `Overspent by ${currency} ${Math.abs(remaining)}`;
-}
-// Temporary internal currency formatter fallback to prevent 404 errors until my m6
-function formatCurrency(amount, settings) {
-    return `${settings.baseCurrency} ${Number(amount).toFixed(2)}`;
+    if (remaining > 0) return `${formatCurrency(remaining, settings)} remaining`;
+    return `Overspent by ${formatCurrency(Math.abs(remaining), settings)}`;
 }
 
-// === 2. ARIA LIVE BUDGET ALARM ORCHESTRATOR ===
+// updating dashboard(calculating total records,spending,budget status and top category)
 export function updateDashboard() {
-    // Corrected budgetCap casing to match state.js configurations
-    const currentCap = parseFloat(state.settings.BudgetCap) || 0;
-    const total = getTotalSpending(state.expenses);
+    const targetCurrency = state.settings.baseCurrency || "KES";
+    const rawBudgetCap = parseFloat(state.settings.BudgetCap) || 0;
+    const currentCap = convertAmount(rawBudgetCap, "KES", targetCurrency);
+    const total = getTotalSpending(state.expenses, targetCurrency);
 
     document.getElementById("total-records").textContent = getTotalRecords(state.expenses);
     document.getElementById("total-spending").textContent = formatCurrency(total, state.settings);
     document.getElementById("top-category").textContent = getTopCategory(state.expenses);
-    document.getElementById("budget-status").textContent = getBudgetStatus(state.expenses, currentCap, state.settings);
+    document.getElementById("budget-status").textContent = getBudgetStatus(total, currentCap, state.settings);
 
     const budgetMessage = document.getElementById("budget-message");
     const budgetAlert = document.getElementById("budget-alert");
