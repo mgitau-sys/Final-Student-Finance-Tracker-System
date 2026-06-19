@@ -15,40 +15,46 @@ import {
     renderTableRows 
 } from './ui.js';
 
+import { updateDashboard } from './dashboard.js';
+
 // Waiting for the HTML layout to load completely
 document.addEventListener('DOMContentLoaded', () => {
 
-    // === 1. STATE INITIALIZATION & INITIAL RENDER ===
-    loadStateFromStorage();
-    renderTableRows();
-
-    // === 2. SORT AND LIVE REGEX SEARCH CONTROLS (Milestone 4) ===
+    //getting html elements
+    const form = document.getElementById('expense-form');
     const sortSelect = document.getElementById('sort-select');
     const searchInput = document.getElementById('search-pattern');
     const ignoreCaseCheck = document.getElementById('ignore-case');
 
-    if (sortSelect) {
-        sortSelect.addEventListener('change', () => {
-            sortRecords(sortSelect.value); // Rearrange data positions in state array
-            renderTableRows();             // Redraw updated order on screen
-        });
+    //The centralised view manager
+    function updateView() {
+        // Re-arranging data positions based on the user drop down menu choice
+        if (sortSelect) {
+            sortRecords(sortSelect.value);
+        }
+        //Re-rendering the arranged table rows
+        renderTableRows();
+        //updating the dashboard
+        updateDashboard();
     }
+    loadStateFromStorage();//pulling past entries from local storage
+    updateView();
 
-    if (searchInput) {
-        searchInput.addEventListener('input', () => {
-            renderTableRows(); // Filter and highlight table live on every single keystroke!
-        });
+    // we now replace the re-rendering with the function updateView
+    if (sortSelect) {
+        sortSelect.addEventListener('change', updateView);
     }
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', updateView);
+        }
 
     if (ignoreCaseCheck) {
-        ignoreCaseCheck.addEventListener('change', () => {
-            renderTableRows(); // Instantly update text casing search parameters
-        });
+        ignoreCaseCheck.addEventListener('change', updateView);
     }
 
-    // === 3. CORE ADD-EXPENSE FORM WORKSPACE ===
-    const form = document.getElementById('expense-form');
-    if (!form) return; // Prevent errors if executing script on non-existent view markup
+    //Real time field validation alerts
+    if (!form) return; 
 
     // Monitor input changes 
     const descriptionInput = document.getElementById('description');
