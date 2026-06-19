@@ -1,88 +1,191 @@
-# Student Finance Tracker (Vanilla Web Suite)
+# Student Finance Tracker
 
-An accessible, responsive, mobile-first single-page application built using pure vanilla HTML5, CSS3, and modern modular JavaScript (ES Modules). Designed for students to seamlessly manage personal budgets, track expenses across multiple currencies, and perform deep analytical live searches using safe Regular Expressions.
+A responsive, accessible, vanilla HTML/CSS/JavaScript web app that helps
+students log expenses, track spending by category, set a monthly budget,
+and search/sort their records — all stored locally in the browser.
 
-**Live Deployment URL:** [https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPO-NAME/](https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPO-NAME/)  
-**Demo Video Presentation:** [Unlisted Video Link Here (Walkthrough of Keyboard Navigation, Regex, and Import/Export)]
+**Live demo:** `https://<your-username>.github.io/<your-repo-name>/`
+**Author:** Marion Gitau
+**Email:** m.gitau@alustudent.com
+**GitHub:** [mgitau-sys] https://github.com/mgitau-sys/Final-Student-Finance-Tracker-System.git
+     
+    Live github pages url:[ https://mgitau-sys.github.io/Final-Student-Finance-Tracker-System/]
+    unlisted demo video url:
 
----
 
-## 📋 Table of Contents
-1. [Core Features](#-core-features)
-2. [Regular Expression (Regex) Catalog](#-regular-expression-regex)
-3. [Accessibility (a11y) & UX Engineering](#-accessibility-a11y--ux)
-4. [Keyboard Navigation Map](#-keyboard-navigation-map)
-5. [System Architecture & Module Layout](#-system-architecture)
-6. [Testing Environment Framework](#-testing-environment)
-7. [Development Roadmap (Commit Progress)](#-development-roadmap)
 
 ---
 
-## 🛠️ Core Features
+## Chosen Theme
 
-*   **Dynamic Sections Layout:** A completely responsive Single Page Application (SPA) structured using native semantic milestones including: *About, Dashboard/Stats, Records Matrix, Entry Forms, and Settings*.
-*   **Live Aggregates & Chart Metrics:** Automatically tallies spending metrics, dynamically flags top categorical spending groups, and tracks trailing 7-day spending trends via a native CSS/JS visualization component.
-*   **Flexible Currency Conversions:** Runs on a base currency configuration ($USD) with multi-conversion fields supporting alternate exchange calculations ($EUR, $GBP) modifiable inside local application settings panels.
-*   **State Automation Engine:** Keeps operations localized using automated background updates to local transaction tracking properties (`localStorage`) combined with comprehensive structural validations matching external JSON imports/exports.
-
----
-
-## 📊 Regular Expression (Regex) Catalog
-
-The input filtering framework uses strict regular expressions to validate manual user data entries, alongside a highly resilient live search processing compiler wrapped safely within execution boundary blocks (`try/catch`).
-
-| Target Input Element | Regular Expression Expression | Validation Logic & Boundaries |
-| :--- | :--- | :--- |
-| **Description / Title** | `/^\S(?:.*\S)?$/` | Mandates text input entry; strictly forbids or strips leading/trailing blanks while compressing nested double spaces. |
-| **Numeric Expense Amount**| `^(0\|[1-9]\d*)(\.\d{1,2})?$` | Enforces absolute numeric bounds; accepts whole counts or integers terminating at exact 2-decimal fractional limits (e.g., `15`, `45.50`). |
-| **Calendar Tracker Date**| `^\d{4}-(0[1-9]\|1[0-2])-(0[1-9]\|[12]\d\|3[01])$` | Enforces structural standard compliance; tracks input layout syntax using strict `YYYY-MM-DD` notation formats. |
-| **Category Selection / Tag**| `^[A-Za-z]+(?:[ -][A-Za-z]+)*$` | Confirms structural labels use literal alphabet arrays separated by internal hyphens or spaces without trailing grammar marks. |
-| **Advanced Syntax Match** | `\b(\w+)\s+\1\b` | **Back-reference Lookback:** Catches duplicate input anomalies in real time (e.g., intercepts accidental double entries like `"Coffee Coffee"`). |
-
-### Custom Live Search Patterns (Examples to Test)
-*   **Cents Search:** `/\.\d{2}\b/` — Instantly surfaces items matching exact decimal fractional structures.
-*   **Beverage Keyword Match:** `/(coffee\|tea)/i` — Filters relevant string values globally disregarding text casing boundaries.
+**Student Finance Tracker** — tracks transactions with a description,
+amount, category, and date. Includes a dashboard with totals, a budget
+cap with live status messages, and manual currency conversion.
 
 ---
 
-## ♿ Accessibility (a11y) & UX Engineering
+## Setup / How to Run
 
-This interface was designed from the ground up for strict accessibility compliance, making it fully usable via screen readers and keyboard controls alone.
+This is a static site — no build step, no npm install required.
 
-*   **Skip-to-Content Utility Link:** The absolute first focusable element inside the document layout, enabling keyboard-only users to skip past navigation menus directly to the workspace area.
-*   **Visual Focus Highlight Indicators:** Built using zero-fallout, modern `:focus-visible` outline boundaries (`3px solid var(--accent-focus)`) with a clean layout separation space (`outline-offset: 2px`). This ensures high visibility without impacting standard mouse click events.
-*   **Proactive ARIA Live Announcements:**
-    *   Monitors and announces structural application shifts or error entries using an explicit live component container: `<div role="status" aria-live="polite"></div>`.
-    *   **Budget Cap Logic:** If spending remains securely under specified limitations, updates are broadcast quietly (`polite`). The moment expenditures push past the user-defined cap, the container switches programmatically to an urgent alert level (`aria-live="assertive"`), prompting screen readers to interrupt immediately.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/mgitau-sys/<your-repo-name>.git
+   cd <your-repo-name>
+   ```
+2. Open `index.html` directly in your browser, **or** serve it locally
+   (recommended, since ES modules require a server in some browsers):
+   ```bash
+   npx serve .
+   ```
+   or, if you have Python installed:
+   ```bash
+   python3 -m http.server
+   ```
+3. Visit the local address shown in your terminal (e.g.
+   `http://localhost:3000`).
+
+No API keys, accounts, or backend are needed. All data is saved to your
+browser's `localStorage`.
 
 ---
 
-## ⌨️ Keyboard Navigation Map
+## Features
 
-| Target Hotkey Control | Functional Event Path Triggered |
-| :--- | :--- |
-| `Tab` | Progresses structural keyboard focus down through input items, selection buttons, and link options. |
-| `Shift + Tab` | Reverses keyboard focus vector upwards back through accessible layout interactive nodes. |
-| `Enter` / `Space` | Fires selected button events, registers operational input forms, or toggles interface section links. |
-| `Escape (Esc)` | Immediately dismisses open entry dialog windows or safely cancels active entry modifications. |
+- **Dashboard** — total records, total spending, top category, and a
+  7-day spending trend chart.
+- **Budget cap** — set a monthly limit in Settings; see remaining
+  budget or an over-budget warning, announced via ARIA live regions.
+- **Records table** — view all transactions, sortable by date,
+  description (A–Z / Z–A), or amount (low–high / high–low).
+- **Regex-powered live search** — type a pattern to filter records in
+  real time, with a case-insensitive toggle and safe error handling for
+  invalid patterns.
+- **Add / Edit form** — fully validated with regex rules (see catalog
+  below); inline error messages per field.
+- **Edit & delete** — inline edit pre-fills the form; delete asks for
+  confirmation before removing a record.
+- **Currency settings** — base currency (KES/USD/EUR) with manually
+  entered exchange rates.
+- **Import / Export** — back up all data as a JSON file, or load it
+  back in with structure validation.
+- **Accessibility-first** — semantic landmarks, labeled inputs, visible
+  focus states, skip link, and ARIA live announcements throughout.
+- **Responsive design** — mobile-first layout tested at ~360px, 768px,
+  and 1024px breakpoints.
 
 ---
 
-## 📁 System Architecture & Module Layout
+## Regex Catalog
 
-The application utilizes a clean, modular structure built entirely on native ES Modules, keeping code organized without any complex build tools.
+All validation patterns live in `scripts/validators.js`.
 
-```text
-├── index.html          # Core single-page template with semantic structural milestones
-├── seed.json           # 10 diverse, complex testing entries initialized for ingestion
+| Field | Pattern | Purpose | Valid Example | Invalid Example |
+|---|---|---|---|---|
+| Description | `/^\S(?:.*\S)?$/` | No leading/trailing spaces | `Lunch at cafeteria` | `  Lunch ` |
+| Amount | `/^(0\|[1-9]\d*)(\.\d{1,2})?$/` | Whole number or up to 2 decimals, no leading zeros | `12.50` | `12.500`, `-5` |
+| Date | `/^\d{4}-(0[1-9]\|1[0-2])-(0[1-9]\|[12]\d\|3[01])$/` | Strict `YYYY-MM-DD` format | `2025-09-29` | `29-09-2025` |
+| Category | `/^[A-Za-z]+(?:[ -][A-Za-z]+)*$/` | Letters, spaces, and hyphens only | `Self-Care` | `Food2` |
+| **Advanced:** Duplicate word | `/\b(\w+)\s+\1\b/i` | Back-reference — flags a word repeated consecutively in the description | rejects `coffee coffee` | allows `coffee and coffee` |
+
+The duplicate-word rule is the **advanced regex** requirement: it uses a
+**back-reference** (`\1`) to catch a captured word (`\w+`) repeated
+immediately after itself, separated only by whitespace.
+
+---
+
+## Keyboard Map
+
+The app is fully operable without a mouse.
+
+| Key | Action |
+|---|---|
+| `Tab` / `Shift + Tab` | Move forward / backward through links, inputs, and buttons |
+| `Enter` | Activate the focused link or button; submit the form when focused on the submit button |
+| `Space` | Activate a focused button or toggle a checkbox |
+| `Escape` | Close the mobile navigation menu (when open) |
+| `Arrow keys` | Move between options in `<select>` dropdowns (native browser behavior) |
+
+The **skip link** (first focusable element on the page) lets keyboard
+users jump straight to `<main>`, bypassing the header and navigation.
+
+---
+
+## Accessibility (a11y) Notes
+
+- **Landmarks:** `<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`
+  are used throughout for clear page structure.
+- **Labels:** Every form input has a `<label for="">` correctly bound
+  to its `id` — no placeholder-only labeling.
+- **Skip link:** `Skip to content` link at the very top of the page.
+- **Visible focus:** All interactive elements show a visible focus
+  outline; outlines are never removed without a replacement style.
+- **Live regions:**
+  - `#budget-message` uses `role="status"` + `aria-live="polite"` for
+    routine remaining-budget updates.
+  - `#budget-alert` uses `aria-live="assertive"` so an over-budget
+    warning interrupts and is announced immediately.
+  - `#search-error` uses `role="alert"` for invalid regex patterns.
+- **Color contrast:** Text/background combinations meet WCAG AA
+  contrast (4.5:1 minimum for normal text).
+- **Responsive & zoom-friendly:** Layout adapts at ~360px, 768px, and
+  1024px and remains readable when the page is zoomed.
+
+---
+
+## How to Run Tests
+
+Validator tests live in `tests.html` at the project root and run
+directly in the browser — no test framework or build step needed.
+
+1. Open `tests.html` in your browser (double-click the file, or visit
+   it via your local server, e.g. `http://localhost:3000/tests.html`).
+2. Results appear directly on the page: each test shows a **PASS** or
+   **FAIL** badge, grouped by validator function.
+3. A summary banner at the top shows whether all tests passed.
+
+The tests cover `validateDescription`, `validateAmount`, `validateDate`,
+and `validateCategory`, including specific cases for the advanced
+duplicate-word back-reference rule.
+
+---
+
+## Project Structure
+
+```
+project/
+├── index.html                          — main page markup, all 5 sections
+├── tests.html                          — validator test runner (M3)
+├── seed.json                           — sample starter records
+├── README.md                           — this file
+├── docs/
+│   └── M1-spec.md                      — written spec, data model, a11y plan
+├── assets/
+│   └── docs/
+│       └── wireframes/
+│           ├── Dashboard.jpeg          — dashboard wireframe sketch
+│           ├── expenses.jpeg           — records/table wireframe sketch
+│           └── settings.jpeg           — settings wireframe sketch
 ├── styles/
-│   ├── main.css        # System layout design variables, standard reset rules, typography tokens
-│   ├── layout.css      # Mobile-first design framework supporting 3 distinct responsive breakpoints
-│   └── components.css  # Presentation rules for form controls, matrix sheets, alerts, and custom metrics
+│   ├── main.css                        — variables, base styles, header/nav
+│   ├── components.css                  — cards, buttons, table, form styling
+│   └── layout.css                      — responsive grid/spacing, breakpoints
 └── scripts/
-    ├── main.js         # Entry bootstrap orchestrator managing structural view transitions
-    ├── state.js        # Single-source state manager handling calculations and mutations
-    ├── storage.js      # Local storage access layer and import/export structural sanitizers
-    ├── ui.js           # Document renderer managing data grids, charts, and secure text highlighting
-    ├── validators.js   # Pure regex validation engines confirming field entry configurations
-    └── search.js       # Safe live dynamic search runtime wrapped within try/catch blocks
+    ├── main.js        — entry point; wires up all event listeners and form submit
+    ├── state.js        — central in-memory state + localStorage load/save + CRUD (add/edit/delete/sort records)
+    ├── validators.js   — all regex validation rules (description, amount, date, category, duplicate-word)
+    ├── search.js       — safely compiles the live regex search pattern and highlights matches
+    ├── ui.js            — renders the expense table rows, applying search filtering/highlighting
+    ├── dashboard.js    — stats calculations (totals, top category, budget status) and 7-day trend chart
+    ├── currency.js     — exchange rate conversion and currency formatting
+    └── files.js         — JSON export and import (with structure validation)
+```
+
+---
+
+## Demo Video
+
+`<link to your unlisted demo video here>`
+
+The video demonstrates keyboard-only navigation, regex search edge
+cases, and the JSON import/export round-trip.
