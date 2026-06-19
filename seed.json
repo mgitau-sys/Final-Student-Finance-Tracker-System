@@ -1,14 +1,5 @@
 {
-  "settings": {
-    "baseCurrency": "USD",
-    "targetCap": 500.00,
-    "exchangeRates": {
-      "EUR": 0.92,
-      "GBP": 0.79
-    },
-    "categories": ["Food", "Books", "Transport", "Entertainment", "Fees", "Other"]
-  },
-  "records": [
+  "expenses": [
     {
       "id": "rec_1718812345001",
       "description": "Semester Textbook Package",
@@ -99,5 +90,9 @@
       "createdAt": "2026-06-18T10:22:00.000Z",
       "updatedAt": "2026-06-18T10:22:00.000Z"
     }
-  ]
+  ],
+  "settings": {
+    "baseCurrency": "KES",
+    "BudgetCap": "10000"
+  }
 }

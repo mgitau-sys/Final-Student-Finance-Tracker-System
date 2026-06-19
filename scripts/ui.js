@@ -1,5 +1,6 @@
 import { state } from './state.js';
 import { compileSearchRegex, highlightTextMatches } from './search.js';
+import { formatCurrency } from './currency.js';
 
 /**
  * Renders the expense array into your HTML <tbody> with live search filtering and highlighting
@@ -43,6 +44,7 @@ export function renderTableRows() {
         // Apply visual highlighting tags safely using our search tool
         const displayedDesc = regex ? highlightTextMatches(expense.description, regex) : expense.description;
         const displayedCat = regex ? highlightTextMatches(expense.category, regex) : expense.category;
+        const formattedPrice = formatCurrency(expense.amount, state.settings);
 
         // Generate the native table row markup
         const tr = document.createElement('tr');

@@ -195,3 +195,10 @@ footer {
     width: 40px;
     background: steelblue;
 }
+/* Accessible search styling match highlighting */
+mark {
+    background-color: #fff3cd !important;
+    color: #856404 !important;
+    padding: 0.1rem 0.2rem;
+    border-radius: 2px;
+}
