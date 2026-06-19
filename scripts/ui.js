@@ -47,10 +47,11 @@ export function renderTableRows() {
         // Generate the native table row markup
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td>${expense.date}</td>
-            <td>${displayedDesc}</td>
-            <td>${expense.category}</td>
-            <td>${state.settings.baseCurrency} ${expense.amount.toFixed(2)}</td>
+        <td>${expense.date}</td>
+        <td>${displayedDesc}</td>
+        <td>${displayedCat}</td>
+        <td>${state.settings.baseCurrency} ${expense.amount.toFixed(2)}</td>
+
             <td>
                 <button class="edit-btn" data-id="${expense.id}">Edit</button>
                 <button class="delete-btn" style="background-color: #c62828;" data-id="${expense.id}">Delete</button>
