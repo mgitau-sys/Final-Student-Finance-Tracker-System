@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validation Engine Test Matrix</title>
+    <style>
+        body { font-family: monospace; background: #111; color: #eee; padding: 20px; }
+        .pass { color: #4CAF50; }
+        .fail { color: #f44336; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Unit Testing Results Console</h1>
+    <div id="logs"></div>
+
+    <script type="module">
+        import { validateDescription, validateAmount, validateDate, validateCategory } from './scripts/validators.js';
+
+        const logs = document.getElementById('logs');
+
+        function runTest(testName, result, expectedValid) {
+            const p = document.createElement('p');
+            if (result.valid === expectedValid) {
+                p.className = 'pass';
+                p.innerText = `[PASS] ${testName}`;
+            } else {
+                p.className = 'fail';
+                p.innerText = `[FAIL] ${testName}
+                 - Message returned: "${result.message}"`;
+            }
+            logs.appendChild(p);
+        }
+
+        // Run custom checks
+        runTest("Valid Description", validateDescription("Ice cream"), true);
+        runTest("Spaced Description", validateDescription("  bike riding "), false);
+        runTest("Duplicate Words Catch", validateDescription("Ice cream Ice cream"), false);
+        
+        runTest("Valid Number", validateAmount("120.50"), true);
+        runTest("Bad Leading Zero", validateAmount("045.50"), false);
+        
+        runTest("Valid Date", validateDate("2026-06-19"), true);
+        runTest("Bad Date Format", validateDate("19/06/2026"), false);
+    </script>
+</body>
+</html>
