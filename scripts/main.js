@@ -5,11 +5,50 @@ import {
     validateCategory 
 } from './validators.js';
 
+import { 
+    loadStateFromStorage, 
+    sortRecords,
+    addRecord 
+} from './state.js';
+
+import { 
+    renderTableRows 
+} from './ui.js';
+
 // Waiting for the HTML layout to load completely
 document.addEventListener('DOMContentLoaded', () => {
+
+    // === 1. STATE INITIALIZATION & INITIAL RENDER ===
+    loadStateFromStorage();
+    renderTableRows();
+
+    // === 2. SORT AND LIVE REGEX SEARCH CONTROLS (Milestone 4) ===
+    const sortSelect = document.getElementById('sort-select');
+    const searchInput = document.getElementById('search-pattern');
+    const ignoreCaseCheck = document.getElementById('ignore-case');
+
+    if (sortSelect) {
+        sortSelect.addEventListener('change', () => {
+            sortRecords(sortSelect.value); // Rearrange data positions in state array
+            renderTableRows();             // Redraw updated order on screen
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            renderTableRows(); // Filter and highlight table live on every single keystroke!
+        });
+    }
+
+    if (ignoreCaseCheck) {
+        ignoreCaseCheck.addEventListener('change', () => {
+            renderTableRows(); // Instantly update text casing search parameters
+        });
+    }
+
+    // === 3. CORE ADD-EXPENSE FORM WORKSPACE ===
     const form = document.getElementById('expense-form');
-    
-    if (!form) return; // Prevent errors if on a different section
+    if (!form) return; // Prevent errors if executing script on non-existent view markup
 
     // Monitor input changes 
     const descriptionInput = document.getElementById('description');
@@ -54,7 +93,20 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('category-error').innerText = catCheck.valid ? "" : catCheck.message;
 
         if (descriptionCheck.valid && amountCheck.valid && dateCheck.valid && catCheck.valid) {
-            alert("Form inputs are perfectly validated via Regex! Ready for state entry storage next.");
+            
+            // 4. SAVE NEW EXPENSE TO STATE ENGINE (Milestone 4 Integration)
+            addRecord(
+                descriptionInput.value,
+                amountInput.value,
+                categorySelect.value,
+                dateInput.value
+            );
+
+            // 5. RE-RENDER TABLE MATRIX & RESET THE FORM INTERFACES
+            renderTableRows();
+            form.reset();
+            
+            alert("Expense record successfully captured and stored in LocalStorage!");
         }
     });
 });
