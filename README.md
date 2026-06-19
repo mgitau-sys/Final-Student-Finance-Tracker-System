@@ -4,13 +4,15 @@ A responsive, accessible, vanilla HTML/CSS/JavaScript web app that helps
 students log expenses, track spending by category, set a monthly budget,
 and search/sort their records — all stored locally in the browser.
 
-**Live demo:** `https://<your-username>.github.io/<your-repo-name>/`
+[Demo Video](https://www.loom.com/share/7eb2148c085e4bd99cf7f9f4de4f437f)
+
 **Author:** Marion Gitau
 **Email:** m.gitau@alustudent.com
-**GitHub:** [mgitau-sys] https://github.com/mgitau-sys/Final-Student-Finance-Tracker-System.git
-     
-    Live github pages url:[ https://mgitau-sys.github.io/Final-Student-Finance-Tracker-System/]
-    unlisted demo video url:
+
+[GitHub Repository](https://github.com/mgitau-sys/Final-Student-Finance-Tracker-System)
+**Email:** [m.gitau@alustudent.com](mailto:m.gitau@alustudent.com)
+
+ 
 
 
 
