@@ -1,4 +1,5 @@
 import { state, saveStateToStorage } from './state.js';
+import { validateAmount, validateCategory, validateDate, validateDescription, } from './validators.js';
 
 /**
  * Packs up current application records and settings, exporting them as a JSON file.
@@ -44,15 +45,32 @@ export function importDataFromJSON(fileEvent, onSuccessCallback) {
             if (!parsedData.expenses || !Array.isArray(parsedData.expenses)) {
                 throw new Error("Invalid structure: missing expenses array.");
             }
+            //Filtering out any items that don't meet the requirements of regex validation rules
+            const validatedExpenses = parsedData.expenses.filter(expense => {
+                return (
+                    validateDescription(expense.description).valid &&
+                    validateAmount(String(expense.amount)).valid &&
+                    validateDate(expense.date).valid &&
+                    validateCategory(expense.category).valid
+                );
+            });
+            //Calculating how many invalid records were dropped
+            const droppedCount = parsedData.expenses.length - validatedExpenses.length;
 
-            // Restore records back to global application state
-            state.expenses = parsedData.expenses;
+            // Restore only valid records to application state
+            state.expenses = validatedExpenses;
+
             if (parsedData.settings) {
                 state.settings = { ...state.settings, ...parsedData.settings };
             }
 
             saveStateToStorage();
-            alert(`Success! Standardized data packet recovered. ${parsedData.expenses.length} records updated.`);
+            //feedback on whether items were filtered out during validation
+            if (droppedCount > 0) {
+                alert(`Import complete! ${validatedExpenses.length} clean records loaded. Dropped ${droppedCount} invalid records.`);
+            } else {
+                alert(`Success! Standardized data packet recovered. ${parsedData.expenses.length} records updated.`);
+            }
             
             if (typeof onSuccessCallback === "function") {
                 onSuccessCallback();
