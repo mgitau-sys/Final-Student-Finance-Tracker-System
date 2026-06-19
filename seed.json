@@ -1,0 +1,103 @@
+{
+  "settings": {
+    "baseCurrency": "USD",
+    "targetCap": 500.00,
+    "exchangeRates": {
+      "EUR": 0.92,
+      "GBP": 0.79
+    },
+    "categories": ["Food", "Books", "Transport", "Entertainment", "Fees", "Other"]
+  },
+  "records": [
+    {
+      "id": "rec_1718812345001",
+      "description": "Semester Textbook Package",
+      "amount": 145.00,
+      "category": "Books",
+      "date": "2026-06-01",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "updatedAt": "2026-06-01T09:00:00.000Z"
+    },
+    {
+      "id": "rec_1718812345002",
+      "description": "Weekly Campus Bus Pass",
+      "amount": 25.50,
+      "category": "Transport",
+      "date": "2026-06-02",
+      "createdAt": "2026-06-02T08:15:00.000Z",
+      "updatedAt": "2026-06-02T08:15:00.000Z"
+    },
+    {
+      "id": "rec_1718812345003",
+      "description": "Late Coffee Coffee Rush",
+      "amount": 6.75,
+      "category": "Food",
+      "date": "2026-06-03",
+      "createdAt": "2026-06-03T22:40:00.000Z",
+      "updatedAt": "2026-06-03T22:40:00.000Z"
+    },
+    {
+      "id": "rec_1718812345004",
+      "description": "Student Association Annual Fee",
+      "amount": 120.00,
+      "category": "Fees",
+      "date": "2026-06-05",
+      "createdAt": "2026-06-05T14:00:00.000Z",
+      "updatedAt": "2026-06-05T14:00:00.000Z"
+    },
+    {
+      "id": "rec_1718812345005",
+      "description": "Movie Night with Roommates",
+      "amount": 18.50,
+      "category": "Entertainment",
+      "date": "2026-06-08",
+      "createdAt": "2026-06-08T19:30:00.000Z",
+      "updatedAt": "2026-06-08T21:00:00.000Z"
+    },
+    {
+      "id": "rec_1718812345006",
+      "description": "Lab Safety Goggles",
+      "amount": 15.99,
+      "category": "Books",
+      "date": "2026-06-10",
+      "createdAt": "2026-06-10T11:11:00.000Z",
+      "updatedAt": "2026-06-10T11:11:00.000Z"
+    },
+    {
+      "id": "rec_1718812345007",
+      "description": "Campus Cafeteria Lunch Lunch",
+      "amount": 12.25,
+      "category": "Food",
+      "date": "2026-06-12",
+      "createdAt": "2026-06-12T12:05:00.000Z",
+      "updatedAt": "2026-06-12T12:05:00.000Z"
+    },
+    {
+      "id": "rec_1718812345008",
+      "description": "Emergency Emergency Taxi Fare",
+      "amount": 35.00,
+      "category": "Transport",
+      "date": "2026-06-14",
+      "createdAt": "2026-06-14T23:55:00.000Z",
+      "updatedAt": "2026-06-14T23:55:00.000Z"
+    },
+    {
+      "id": "rec_1718812345009",
+      "description": "Month End Concert Ticket",
+      "amount": 55.00,
+      "category": "Entertainment",
+      "date": "2026-06-15",
+      "createdAt": "2026-06-15T16:00:00.000Z",
+      "updatedAt": "2026-06-15T16:00:00.000Z"
+    },
+    {
+      "id": "rec_1718812345010",
+      "description": "Photocopying Printing Charges",
+      "amount": 4.50,
+      "category": "Other",
+      "date": "2026-06-18",
+      "createdAt": "2026-06-18T10:22:00.000Z",
+      "updatedAt": "2026-06-18T10:22:00.000Z"
+    }
+  ]
+}
