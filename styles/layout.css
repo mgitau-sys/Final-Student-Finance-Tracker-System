@@ -1,0 +1,49 @@
+/* Core Section Spacing Configuration */
+.section {
+    padding: 2rem 1rem;
+}
+
+.stats-container {
+    display: grid;
+    gap: 1rem;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+/* =====================
+   TABLET (768px+)
+===================== */
+@media (min-width: 768px) {
+
+    nav ul {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    form {
+        max-width: 600px;
+    }
+}
+
+/* =====================
+   DESKTOP (1024px+)
+===================== */
+@media (min-width: 1024px) {
+
+    main {
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .stats-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
